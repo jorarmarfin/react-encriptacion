@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # If a directory or a file exists, use the request directly
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # Otherwise, forward the request to index.html
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Serve static assets directly
+<IfModule mod_headers.c>
+  <FilesMatch "\.(jpg|jpeg|png|gif|css|js|svg|ico|ttf|woff|woff2|eot)$">
+    Header set Cache-Control "max-age=31536000, public"
+  </FilesMatch>
+</IfModule>
